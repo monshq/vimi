@@ -26,11 +26,12 @@ set nocompatible
     "
     " Libs
         " For FuzzyFinder:
-        " Bundle 'L9'
+         "Bundle 'L9'
     " Interface
         Bundle 'git://github.com/kien/ctrlp.vim.git'
         " Solarized Colorscheme
         Bundle 'git://github.com/altercation/vim-colors-solarized.git'
+        Bundle 'git@github.com:kien/ctrlp.vim.git'
         " A tree explorer plugin
         Bundle 'git://github.com/scrooloose/nerdtree.git'
         " Perform all your vim insert mode completions with Tab
@@ -41,23 +42,27 @@ set nocompatible
         " Depends: http://ctags.sourceforge.net/
         " Bundle 'git://github.com/int3/vim-taglist-plus.git'
         " Shows 'Nth match out of M' at every search
+        Bundle 'https://github.com/jeetsukumaran/vim-buffergator.git'
+        Bundle 'https://github.com/Lokaltog/vim-powerline'
+        Bundle 'git@github.com:terryma/vim-multiple-cursors.git'
+        Bundle 'git@github.com:tpope/vim-surround.git'
         Bundle 'git://github.com/vim-scripts/IndexedSearch.git'
         " Bundle 'git://github.com/rphillips/vim-zoomwin.git'
-        Bundle 'git://github.com/mattn/zencoding-vim.git'
+        "Bundle 'git://github.com/mattn/zencoding-vim.git'
         " TextMate-like snippets
-        Bundle 'git://github.com/vim-scripts/UltiSnips.git'
+        "Bundle 'git://github.com/vim-scripts/UltiSnips.git'
         " TextMate-like snippets
         " Bundle 'git://github.com/msanders/snipmate.vim.git'
         " Miripiruni's XSLT & CSS snippets
         " Bundle 'git://github.com/miripiruni/vimi-snippets.git'
         " RegExp search
-        Bundle 'git://github.com/mileszs/ack.vim.git'
+        "Bundle 'git://github.com/mileszs/ack.vim.git'
         " Provides easy code commenting
         Bundle 'git://github.com/scrooloose/nerdcommenter.git'
         " Mappings to easily delete, change and add surroundings in pairs
         " Bundle 'git://github.com/tpope/vim-surround.git'
         " Git wrapper
-        " Bundle 'git://github.com/tpope/vim-fugitive.git'
+        Bundle 'git://github.com/tpope/vim-fugitive.git'
         " Bundle 'git://github.com/tsaleh/vim-align.git'
         " Bundle 'git://github.com/vim-scripts/bufexplorer.zip.git'
         " Automatic closing of quotes, parenthesis, brackets, etc.
@@ -69,7 +74,7 @@ set nocompatible
         " Bundle 'git://github.com/slack/vim-fuzzyfinder.git'
         Bundle 'git://github.com/vim-scripts/vimwiki.git'
         Bundle 'git://github.com/scrooloose/syntastic.git'
-        Bundle 'git://github.com/vim-scripts/TaskList.vim.git'
+        "Bundle 'git://github.com/vim-scripts/TaskList.vim.git'
     " Lua
         " Bundle 'git://github.com/vim-scripts/lua.vim.git'
         " Bundle 'git://github.com/rkowal/Lua-Omni-Vim-Completion.git'
@@ -107,18 +112,18 @@ set nocompatible
     " Python/Django
         "Bundle 'git://github.com/fs111/pydoc.vim.git'
     " Perl
-        Bundle 'git://github.com/petdance/vim-perl.git'
+        "Bundle 'git://github.com/petdance/vim-perl.git'
     " Ruby/Rails
         " Editing and compiling Ruby
         " Bundle 'git://github.com/vim-ruby/vim-ruby.git'
         " Rails support
-        " Bundle 'git://github.com/tpope/vim-rails.git'
+        Bundle 'git://github.com/tpope/vim-rails.git'
         " Wisely add "end" in ruby, endfunction/endif/more
-        " Bundle 'git://github.com/tpope/vim-endwise.git'
+        Bundle 'git://github.com/tpope/vim-endwise.git'
     " Jade
-        Bundle 'git://github.com/digitaltoad/vim-jade.git'
+        "Bundle 'git://github.com/digitaltoad/vim-jade.git'
     " Stylus
-        Bundle 'git://github.com/wavded/vim-stylus.git'
+        "Bundle 'git://github.com/wavded/vim-stylus.git'
 
     filetype plugin indent on     " required!
 
@@ -189,13 +194,13 @@ set nocompatible
     " Only available when compiled with the +smartindent feature
     set smartindent
     " Number of spaces to use for each step of (auto)indent
-    set shiftwidth=4
+    set shiftwidth=2
     " Use spaces instead of tab
     set expandtab
     " Number of spaces that a tab counts for
-    set tabstop=4
+    set tabstop=2
     " Number of spaces that a tab counts for while performing editing operations
-    set softtabstop=4
+    set softtabstop=2
     " Number of pixel lines inserted between characters
     " Only in GUI
     set linespace=1
@@ -256,36 +261,36 @@ set nocompatible
         return expand('%:p:~')
     endfunction
 
-    " Last window always has a status line
+     "Last window always has a status line
     set laststatus=2
-    " Content of the status line
-    " Only available when compiled with the +statusline feature
+     "Content of the status line
+     "Only available when compiled with the +statusline feature
     set statusline=\ 
-    " Buffer number
+     "Buffer number
     set statusline+=%n:\ 
-    " File name
+     "File name
     set statusline+=%t
-    " Modified flag
+     "Modified flag
     set statusline+=%m
     set statusline+=\ \ 
-    " Paste mode flag
+     "Paste mode flag
     set statusline+=%{&paste?'[paste]\ ':''}
-    " File encoding
+     "File encoding
     set statusline+=%{&fileencoding}
-    " Type of file
-    " Only available when compiled with the +autocmd feature
+     "Type of file
+     "Only available when compiled with the +autocmd feature
     set statusline+=\ \ %Y
-    " Column number
+     "Column number
     set statusline+=\ %3.3(%c%)
-    " Current line / number of lines in buffer
+     "Current line / number of lines in buffer
     set statusline+=\ \ %3.9(%l/%L%)
-    " Percentage through file in lines
-    " set statusline+=\ \ %2.3p%%
-    " File size
+     "Percentage through file in lines
+     set statusline+=\ \ %2.3p%%
+     "File size
     set statusline+=\ \ %{FileSize()}
-    " Truncate here if line is too long
+     "Truncate here if line is too long
     set statusline+=%<
-    " Path to the file
+     "Path to the file
     set statusline+=\ \ CurDir:%{CurDir()}
 
 " Create encodings menu
@@ -540,10 +545,6 @@ set nocompatible
         " camelCase => camel_case
         vnoremap <silent> <Leader>c :s/\v\C(([a-z]+)([A-Z]))/\2_\l\3/g<CR>
 
-    " <Space><Space>
-        " Double space to ". "
-        imap <Space><Space> . 
-
     " ,ts
         " Fix trailing white space
         map <leader>ts :%s/\s\+$//e<CR>
@@ -604,9 +605,13 @@ set nocompatible
     " Switch tabs with <Tab>
         nmap <Tab> gt
         nmap <S-Tab> gT
+    " Buffers in tabs
+      "set switchbuf=usetab,newtab
+    " New tab
+      noremap <C-t> :tabnew<CR>
 
     " Ремапим русские символы
-        " set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЖЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL:\\"ZXCVBNM<>
+      set langmap=ёйцукенгшщзхъфывапролджэячсмитьбюЁЙЦУКЕHГШЩЗХЪФЫВАПРОЛДЭЯЧСМИТЬБЮ;`qwertyuiop[]asdfghjkl\\;'zxcvbnm\\,.~QWERTYUIOP{}ASDFGHJKL\\"ZXCVBNM<>
 
 
 " Environment
@@ -614,6 +619,8 @@ set nocompatible
     set history=1000
     " Save file with root permissions
     command! W exec 'w !sudo tee % > /dev/null' | e!
+
+    let g:Powerline_symbols = 'fancy'
 
     " Backspacing settings
         " start     allow backspacing over the start of insert;
@@ -630,7 +637,7 @@ set nocompatible
 
     " Load previous session
         " Only available when compiled with the +viminfo feature
-        set viminfo='10,\"100,:20,%,n~/.viminfo
+        set viminfo='10,\"100,:20,n~/.viminfo
         " Set cursor to its last position
         au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
@@ -675,7 +682,7 @@ set nocompatible
     " Solarized
         syntax enable
         " http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized#comment11144700_7278548
-        let g:solarized_termcolors=16
+        let g:solarized_termcolors=256
         set background=dark
         try
             colorscheme solarized
@@ -683,11 +690,11 @@ set nocompatible
             echo "Solarized theme not found. Run :BundleInstall"
         endtry
 
-        try
-            call togglebg#map("<Leader>b")
-        catch /^Vim\%((\a\+)\)\=:E117/
-            " :(
-        endtry
+        "try
+            "call togglebg#map("<Leader>b")
+        "catch /^Vim\%((\a\+)\)\=:E117/
+            "" :(
+        "endtry
 
     " NERDTree
         nmap <Bs> :NERDTreeToggle<CR>
@@ -701,6 +708,11 @@ set nocompatible
         " Use arrows instead of + ~ chars when displaying directories
         let NERDTreeDirArrows=1
         let NERDTreeBookmarksFile= $HOME . '/.vim/.NERDTreeBookmarks'
+
+    " Buffergator
+        let g:buffergator_viewport_split_policy="T"
+        let g:buffergator_sort_regime="mru"
+        let g:buffergator_hsplit_size=10
 
     " Zen Coding
         let g:user_zen_settings = {
