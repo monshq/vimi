@@ -525,8 +525,8 @@ set nocompatible
         nnoremap K h/[^ ]<cr>"zd$jyyP^v$h"zpJk:s/\v +$//<cr>:noh<cr>j^
 
     " Navigate through wrapped lines
-        noremap j gj
-        noremap k gk
+        noremap <silent> j gj
+        noremap <silent> k gk
 
     " gf
         " Open file under cursor in a new vertical split
@@ -710,6 +710,7 @@ set nocompatible
         let NERDTreeBookmarksFile= $HOME . '/.vim/.NERDTreeBookmarks'
 
     " Buffergator
+        nmap <CR> :BuffergatorToggle<CR>
         let g:buffergator_viewport_split_policy="T"
         let g:buffergator_sort_regime="mru"
         let g:buffergator_hsplit_size=10
