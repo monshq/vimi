@@ -25,13 +25,13 @@ set nocompatible
     " NOTE: comments after Bundle command are not allowed...
     "
     " Libs
-        " For FuzzyFinder:
-         "Bundle 'L9'
-    " Interface
-        Bundle 'git://github.com/kien/ctrlp.vim.git'
-        " Solarized Colorscheme
+        " vimpager for colorful cat
+        Bundle 'https://github.com/rkitover/vimpager.git'
+    " Colorschemes
         Bundle 'git://github.com/altercation/vim-colors-solarized.git'
-        Bundle 'git@github.com:kien/ctrlp.vim.git'
+        Bundle 'https://github.com/tomasr/molokai.git'
+        Bundle 'https://github.com/hukl/Smyck-Color-Scheme.git'
+    " Interface
         " A tree explorer plugin
         Bundle 'git://github.com/scrooloose/nerdtree.git'
         " Perform all your vim insert mode completions with Tab
@@ -69,11 +69,14 @@ set nocompatible
         " Bundle 'git://github.com/vim-scripts/delimitMate.vim.git'
         " Bundle 'git://github.com/sjl/gundo.vim.git'
         " Bundle 'git://github.com/edsono/vim-matchit.git'
-        Bundle 'git://github.com/sjl/threesome.vim.git'
+        "Bundle 'git://github.com/sjl/threesome.vim.git'
+        " Threesome is now called Splice:
+        Bundle 'https://github.com/sjl/splice.vim.git'
         " Bundle 'git://github.com/chrismetcalf/vim-yankring.git'
         " Bundle 'git://github.com/slack/vim-fuzzyfinder.git'
         Bundle 'git://github.com/vim-scripts/vimwiki.git'
         Bundle 'git://github.com/scrooloose/syntastic.git'
+        Bundle 'git://github.com/kien/ctrlp.vim.git'
         "Bundle 'git://github.com/vim-scripts/TaskList.vim.git'
     " Lua
         " Bundle 'git://github.com/vim-scripts/lua.vim.git'
@@ -120,6 +123,10 @@ set nocompatible
         Bundle 'git://github.com/tpope/vim-rails.git'
         " Wisely add "end" in ruby, endfunction/endif/more
         Bundle 'git://github.com/tpope/vim-endwise.git'
+    " Erlang
+        Bundle 'https://github.com/jimenezrick/vimerl'
+    " Go
+        " Bundle ''
     " Jade
         "Bundle 'git://github.com/digitaltoad/vim-jade.git'
     " Stylus
@@ -171,11 +178,12 @@ set nocompatible
     else
         set listchars=tab:»\ ,trail:·,extends:>,precedes:<,nbsp:_
     endif
-    " Wrap long lines
+    " NO wrap long lines
     set wrap
     " Don't break words when wrapping
     " Only available when compiled with the +linebreak feature
     set linebreak
+    set formatoptions+=l
     " Show ↪ at the beginning of wrapped lines
     if has("linebreak")
         let &sbr = nr2char(8618).' '
@@ -183,11 +191,11 @@ set nocompatible
     " Number of column to be highlighted
     " Only available when compiled with the +syntax feature
     if version >= 703
-        set colorcolumn=80
+        set colorcolumn=100
     end
     " Maximum width of text that is being inserted
     " Longer lines will be broken after white space to get this width
-    set textwidth=80
+    " set textwidth=80
     " Copy indent from current line when starting a new line
     set autoindent
     " Do smart indenting when starting a new line
@@ -575,7 +583,7 @@ set nocompatible
 
     " ,b
         " In Visual mode exec git blame with selected text
-        vmap <Leader>b :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
+        "vmap <Leader>b :<C-U>!git blame <C-R>=expand("%:p") <CR> \| sed -n <C-R>=line("'<") <CR>,<C-R>=line("'>") <CR>p <CR>
 
     " ,w
         " Jump to next split
@@ -676,19 +684,34 @@ set nocompatible
     autocmd BufNewFile *.html 0r ~/.vimi/templates/template.html
 
     autocmd FileType jade setlocal expandtab shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType erlang setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+    autocmd BufNewFile,BufRead Gemfile setlocal filetype=ruby
+
+    au BufRead,BufNewFile *.app.src setfiletype erlang
+    au BufRead,BufNewFile rebar.config setfiletype erlang
+    au BufRead,BufNewFile relx.config setfiletype erlang
+
+    let g:syntastic_erlang_checkers = ['syntaxerl']
+
 
 " Plugins
+    syntax enable
 
+    function! FixColorScheme()
+      let g:rehash256=1
+      let g:solarized_termcolors=256
+      set background=dark
+    endfunction
+
+    call FixColorScheme()
+    colorscheme molokai
     " Solarized
-        syntax enable
         " http://stackoverflow.com/questions/7278267/incorrect-colors-with-vim-in-iterm2-using-solarized#comment11144700_7278548
-        let g:solarized_termcolors=256
-        set background=dark
-        try
-            colorscheme solarized
-        catch /^Vim\%((\a\+)\)\=:E185/
-            echo "Solarized theme not found. Run :BundleInstall"
-        endtry
+        "try
+            "colorscheme solarized
+        "catch /^Vim\%((\a\+)\)\=:E185/
+            "echo "Solarized theme not found. Run :BundleInstall"
+        "endtry
 
         "try
             "call togglebg#map("<Leader>b")
@@ -701,6 +724,7 @@ set nocompatible
         let NERDTreeShowBookmarks=1
         let NERDTreeChDirMode=2
         let NERDTreeQuitOnOpen=1
+        let NERDTreeIgnore=["\.git","\.eunit"]
         let NERDTreeShowHidden=1
         let NERDTreeKeepTreeInNewTab=0
         " Disable display of the 'Bookmarks' label and 'Press ? for help' text
@@ -709,8 +733,15 @@ set nocompatible
         let NERDTreeDirArrows=1
         let NERDTreeBookmarksFile= $HOME . '/.vim/.NERDTreeBookmarks'
 
+        " open nerdtree when no files specified after launch
+        autocmd StdinReadPre * let s:std_in=1
+        autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+
+    " CtrlP
+        let g:ctrlp_custom_ignore = '\v[\/]\w+\.(beam)$'
+
     " Buffergator
-        nmap <CR> :BuffergatorToggle<CR>
+        nmap <CR> :BuffergatorOpen<CR>
         let g:buffergator_viewport_split_policy="T"
         let g:buffergator_sort_regime="mru"
         let g:buffergator_hsplit_size=10
